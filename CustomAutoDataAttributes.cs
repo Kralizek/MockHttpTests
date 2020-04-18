@@ -1,9 +1,7 @@
 using System;
-using System.Net.Http;
 using AutoFixture;
 using AutoFixture.AutoMoq;
 using AutoFixture.NUnit3;
-using RichardSzalay.MockHttp;
 
 namespace MockHttpTests
 {
@@ -19,7 +17,7 @@ namespace MockHttpTests
                 ConfigureMembers = true
             });
 
-            fixture.Customize<HttpClient>(o => o.FromFactory((MockHttpMessageHandler handler) => handler.ToHttpClient()));
+            fixture.Customizations.Add(new HttpClientSpecimenBuilder());
 
             return fixture;
         }
